@@ -1,0 +1,23 @@
+// const express = require("express");
+// require('dotenv').config()
+import { Configuration, OpenAIApi } from "openai"
+// const cors = require("cors")
+// const app = express();
+const PORT = 3000
+import midjourney from "midjourney-client"
+
+
+const configuration = new Configuration({
+    apiKey: process.env['API_KEY'],
+});
+const openai = new OpenAIApi(configuration);
+
+async function a(){
+
+    var res = await midjourney("mdjrny-v4 style Magic-infused aerial view of the Charyn Canyon")
+    console.log(res);
+}
+
+a()
+
+// module.exports = app;
