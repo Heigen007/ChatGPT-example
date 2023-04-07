@@ -44,5 +44,3 @@ app.post("/photo", async (req, res) => {
 })
  
 app.listen(PORT, () => console.log("Started on port " + PORT));
-
-export default app
