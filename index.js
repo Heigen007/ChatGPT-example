@@ -1,15 +1,10 @@
-import express from "express";
-import * as dotenv from 'dotenv'
-import midjourney from "midjourney-client"
-dotenv.config()
-import { Configuration, OpenAIApi } from "openai";
-import cors from "cors"
+const express = require("express");
+require('dotenv').config()
+const { Configuration, OpenAIApi } = require("openai");
+const cors = require("cors")
+const Replicate = require("replicate")
 const app = express();
 const PORT = 3000
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(cors())
 app.use(express.json());
@@ -19,6 +14,10 @@ const configuration = new Configuration({
     apiKey: process.env['API_KEY'],
 });
 const openai = new OpenAIApi(configuration);
+
+const replicate = new Replicate({
+    auth: "7b16e8a4859baaa50a9d358d5743cb6a8710c879",
+});
 
 async function makeRequest(question){
     const response = await openai.createCompletion({
@@ -39,8 +38,10 @@ app.post("/makeRequest", async (req, res) => {
 })
 
 app.post("/photo", async (req, res) => {
-    var result = await midjourney(req.body.question)
-    res.send({ result })
+    const model = "prompthero/openjourney:9936c2001faa2194a261c01381f90e65261879985476014a0a37a334593a05eb";
+    const input = { prompt: req.body.question };
+    const output = await replicate.run(model, { input });
+    res.send({ output })
 })
  
 app.listen(PORT, () => console.log("Started on port " + PORT));
