@@ -24,7 +24,7 @@ function putMessage(msg, owner){
 `
 <div class="d-flex justify-content-start mb-4">
     <div class="img_cont_msg">
-    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+    <img src="https://static.vecteezy.com/system/resources/previews/004/996/790/original/robot-chatbot-icon-sign-free-vector.jpg" class="rounded-circle user_img_msg">
     </div>
     <div class="msg_cotainer">
         <pre class="msgBody"></pre>
