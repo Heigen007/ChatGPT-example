@@ -68,7 +68,7 @@ function sendMessage(text){
         input.value = ""
     })
     .catch(err => {
-        putMessage("ERROR happened, maybe your request is not correct....", "bot")
+        putMessage("Hoisting side ERROR(maybe your request took longer than 60s?)", "bot")
         input.value = ""
     })
 }
