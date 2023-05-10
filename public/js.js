@@ -49,13 +49,15 @@ function putMessage(msg, owner){
 }
 
 function sendMessage(text){
+    var gptVersion = document.querySelector('input[name="chatGPTVersion"]:checked').value;
     fetch(window.location.href+"makeRequest", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        question: text
+        question: text,
+        gptVersion
       })
     })
     .then(response => {

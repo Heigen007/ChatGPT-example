@@ -246,3 +246,7 @@ margin-bottom: 15px !important;
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  label{
+    color: white;
+  }
