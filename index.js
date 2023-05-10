@@ -28,8 +28,8 @@ async function makeRequest(question){
 
         return response.data.choices[0].message.content
     } catch(err){
-        console.log(err)
-        res.send({answer: "Sorry, I don't know that"})
+        console.log(err.response.data)
+        return "Sorry, I don't know that"
     }
 }
 
