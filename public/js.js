@@ -6,6 +6,8 @@ const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
 
 document.querySelector(".msg_time").innerText = new Date().toLocaleDateString("ru",timeOptions).split(", ")[1]
 
+sessionStorage.setItem("GPTHistory", "[]")
+
 
 sendButton.addEventListener("click", () => {
     putMessage(input.value, "me")
@@ -14,12 +16,16 @@ sendButton.addEventListener("click", () => {
 
 input.addEventListener("keyup", function(event) {
     if (event.keyCode !== 13) return
+    if (event.ctrlKey || event.shiftKey) return
     putMessage(input.value, "me")
     sendMessage(input.value)
 });
 
 function putMessage(msg, owner){
     if(owner !== "me"){
+        var history = JSON.parse(this.sessionStorage.getItem("GPTHistory"))
+        history.push({ role: "user", content: msg })
+        this.sessionStorage.setItem("GPTHistory", JSON.stringify(history)) 
         messagesBlock.innerHTML +=
 `
 <div class="d-flex justify-content-start mb-4">
@@ -33,6 +39,9 @@ function putMessage(msg, owner){
 </div>
 `
     } else {
+        var history = JSON.parse(this.sessionStorage.getItem("GPTHistory"))
+        history.push({ role: "system", content: msg })
+        this.sessionStorage.setItem("GPTHistory", JSON.stringify(history))
         messagesBlock.innerHTML +=
 `
     <div class="d-flex justify-content-end mb-4">
@@ -56,7 +65,7 @@ function sendMessage(text){
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        question: text,
+        questionsHistory: JSON.parse(this.sessionStorage.getItem("GPTHistory")),
         gptVersion
       })
     })

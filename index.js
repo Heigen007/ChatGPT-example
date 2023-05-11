@@ -14,17 +14,12 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-async function makeRequest(question, gptVersion){
+async function makeRequest(questionsHistory, gptVersion){
     try{
-        console.log("Question: " + question);
-        const GPT35TurboMessage = [
-            { role: "user", content: question }
-        ];
         const response = await openai.createChatCompletion({
             model: gptVersion,
-            messages: GPT35TurboMessage
+            messages: questionsHistory
         });
-        console.log("Answer: " + response.data.choices[0].message.content)
 
         return response.data.choices[0].message.content
     } catch(err){
@@ -34,7 +29,7 @@ async function makeRequest(question, gptVersion){
 }
 
 app.post("/makeRequest", async (req, res) => {
-    var result = await makeRequest(req.body.question, req.body.gptVersion)
+    var result = await makeRequest(req.body.questionsHistory, req.body.gptVersion)
     res.send({ answer: result })
 })
  
