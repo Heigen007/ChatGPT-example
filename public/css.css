@@ -5,9 +5,9 @@ pre{
 body,html{
     height: 100%;
     margin: 0;
-    background: #7F7FD5;
-    background: -webkit-linear-gradient(to right, #52586b, #603f5a, #333358);
-    background: linear-gradient(to right, #52586b, #603f5a, #333358);
+    background: #82d1c5;
+    background: -webkit-linear-gradient(to right, #82d1c5, #bb5ba9, #7676a6);
+    background: linear-gradient(to right, #82d1c5, #bb5ba9, #7676a6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,7 +162,7 @@ margin-top: auto;
 margin-bottom: auto;
 margin-left: 10px;
 border-radius: 25px;
-background-color: #979aab;
+background-color: #d2d9ff;
 padding: 10px;
 position: relative;
 }
@@ -171,7 +171,7 @@ margin-top: auto;
 margin-bottom: auto;
 margin-right: 10px;
 border-radius: 25px;
-background-color: #809fdd;
+background-color: #87bab4;
 padding: 10px;
 position: relative;
 }

@@ -18,7 +18,7 @@ input.addEventListener("keyup", function(event) {
     if (event.keyCode !== 13) return
     if (event.ctrlKey || event.shiftKey) return
     putMessage(input.value, "me")
-    sendMessage(input.value)
+    sendMessage()
 });
 
 function putMessage(msg, owner){
@@ -30,7 +30,7 @@ function putMessage(msg, owner){
 `
 <div class="d-flex justify-content-start mb-4">
     <div class="img_cont_msg">
-    <img src="https://static.vecteezy.com/system/resources/previews/004/996/790/original/robot-chatbot-icon-sign-free-vector.jpg" class="rounded-circle user_img_msg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/800px-ChatGPT_logo.svg.png" class="rounded-circle user_img_msg">
     </div>
     <div class="msg_cotainer">
         <pre class="msgBody"></pre>
@@ -57,7 +57,10 @@ function putMessage(msg, owner){
     messagesBlock.scrollTop = messagesBlock.scrollHeight;
 }
 
-function sendMessage(text){
+function sendMessage(){
+    if(!checkLength()){
+        alert("Your chat history is too long! Please, refresh the page in the nearest future")
+    }
     var gptVersion = document.querySelector('input[name="chatGPTVersion"]:checked').value;
     fetch(window.location.href+"makeRequest", {
       method: 'POST',
@@ -74,10 +77,21 @@ function sendMessage(text){
     })
     .then(res => {
         putMessage(res.answer, "bot")
-        input.value = ""
     })
     .catch(err => {
         putMessage("Hoisting side ERROR(maybe your request took longer than 60s?)", "bot")
-        input.value = ""
     })
+    input.value = ""
+}
+
+function checkLength(){
+    var history = JSON.parse(this.sessionStorage.getItem("GPTHistory"))
+    var wordsLength = 0
+    for(var i = 0; i < history.length; i++){
+        wordsLength += history[i].content.split(" ").length
+    }
+    if(wordsLength > 3000){
+        return false
+    }
+    return true
 }
